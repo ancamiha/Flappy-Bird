@@ -8,4 +8,5 @@ public final class Constants {
     public static final int SIZE1 = 110;
     public static final int SIZE2 = 130;
     public static final int SIZE3 = 20;
+    public static final int SIZE4 = 5;
 }

@@ -1,14 +1,14 @@
 package game;
 
-import java.awt.Graphics;
-import java.awt.Canvas;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.Random;
 
 import common.Colors;
+import objects.GameObject;
 import objects.Handler;
-import objects.Player;
+import objects.Bird;
 import objects.Type;
 import window.Window;
 import common.Constants;
@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         new Window(this, Constants.WIDTH, Constants.HEIGHT, "Game");
         handler = new Handler();
-        handler.add(new Player(Constants.WIDTH / 2 - Constants.MAX_WB,
+        handler.add(new Bird(Constants.WIDTH / 2 - Constants.MAX_WB,
                 Constants.HEIGHT / 2 - Constants.MAX_HB, Type.Player));
     }
     public final synchronized void start() {
@@ -110,6 +110,11 @@ public class Game extends Canvas implements Runnable {
         graphics.setColor(Colors.GREEN);
         graphics.fillRect(0, Constants.HEIGHT - Constants.SIZE2,
                             Constants.WIDTH, Constants.SIZE3);
+        graphics.setColor(Colors.DARK_GREEN);
+        graphics.fillRect(0, Constants.HEIGHT - Constants.SIZE2,
+                Constants.WIDTH, Constants.SIZE4);
+        graphics.fillRect(0, Constants.HEIGHT - Constants.SIZE1,
+                Constants.WIDTH, Constants.SIZE4);
 
         handler.render(graphics);
         graphics.dispose();
