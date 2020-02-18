@@ -1,12 +1,10 @@
 package game;
 
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 import java.util.Random;
-
 import common.Colors;
-import objects.GameObject;
 import objects.Handler;
 import objects.Bird;
 import objects.Type;
@@ -19,12 +17,17 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private Random r;
     private Handler handler;
+    //private ArrayList<GameObject> columns;
 
     public Game() {
         new Window(this, Constants.WIDTH, Constants.HEIGHT, "Game");
         handler = new Handler();
         handler.add(new Bird(Constants.WIDTH / 2 - Constants.MAX_WB,
                 Constants.HEIGHT / 2 - Constants.MAX_HB, Type.Player));
+//        columns = new ArrayList<>();
+//        for (GameObject column : columns) {
+//            handler.add(column);
+//        }
     }
     public final synchronized void start() {
         thread = new Thread(this);

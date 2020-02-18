@@ -1,6 +1,9 @@
 package common;
 
 public final class Constants {
+    private Constants() {
+    }
+
     public static final int WIDTH = 640;
     public static final int HEIGHT = WIDTH / 12 * 9;
     public static final int MAX_WB = 30;

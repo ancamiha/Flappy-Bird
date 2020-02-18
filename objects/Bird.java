@@ -1,10 +1,12 @@
 package objects;
 
 import common.Colors;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class Bird extends GameObject {
+    private Graphics graphics;
+
     public Bird(final int x, final int y, final Type type) {
         super(x, y, type);
         //speedX = 1;
@@ -17,69 +19,81 @@ public class Bird extends GameObject {
     }
 
     @Override
-    public void render(final Graphics graphics) {
+    public final void render(final Graphics graphics) {
+        final int three = 3;
+        final int six = 6;
+        final int nine = 9;
+        final int twelve = 12;
+        final int fifteen = 15;
+        final int eighteen = 18;
+        final int tOne = 21;
+        final int tFour =  24;
+        final int tSeven = 27;
+        final int thirty = 30;
+        final int thThree = 33;
+
         graphics.setColor(Color.BLACK);
         //body & wing
-        graphics.fillRect(x, y, 18, 3);
-        graphics.fillRect(x - 6, y + 3, 6, 3);
-        graphics.fillRect(x - 9, y + 6, 3, 3);
-        graphics.fillRect(x - 15, y + 9, 12, 3);
-        graphics.fillRect(x - 3, y + 12, 3, 3);
-        graphics.fillRect(x , y + 15, 3, 6);
-        graphics.fillRect(x - 3, y + 21, 3, 3);
-        graphics.fillRect(x - 18, y + 12, 3, 9);
-        graphics.fillRect(x - 15, y + 21, 3, 3);
-        graphics.fillRect(x - 12, y + 24, 9, 3);
-        graphics.fillRect(x - 12, y + 27, 3, 3);
-        graphics.fillRect(x - 9, y + 30, 6, 3);
-        graphics.fillRect(x - 3, y + 33, 15, 3);
+        graphics.fillRect(x, y, eighteen, three);
+        graphics.fillRect(x - six, y + three, six, three);
+        graphics.fillRect(x - nine, y + six, three, three);
+        graphics.fillRect(x - fifteen, y + nine, twelve, three);
+        graphics.fillRect(x - three, y + twelve, three, three);
+        graphics.fillRect(x, y + fifteen, three, six);
+        graphics.fillRect(x - three, y + tOne, three, three);
+        graphics.fillRect(x - eighteen, y + twelve, three, nine);
+        graphics.fillRect(x - fifteen, y + tOne, three, three);
+        graphics.fillRect(x - twelve, y + tFour, nine, three);
+        graphics.fillRect(x - twelve, y + tSeven, three, three);
+        graphics.fillRect(x - nine, y + thirty, six, three);
+        graphics.fillRect(x - three, y + thThree, fifteen, three);
         //eye
-        graphics.fillRect(x + 18 , y + 3, 3, 3);
-        graphics.fillRect(x + 21 , y + 6, 3, 3);
-        graphics.fillRect(x + 18 , y + 9, 3, 6);
-        graphics.fillRect(x + 24 , y + 9, 3, 9);
-        graphics.fillRect(x + 9 , y + 15, 3, 3);
-        graphics.fillRect(x + 6 , y + 6, 3, 9);
-        graphics.fillRect(x + 9 , y + 3, 3, 3);
+        graphics.fillRect(x + eighteen, y + three, three, three);
+        graphics.fillRect(x + tOne, y + six, three, three);
+        graphics.fillRect(x + eighteen, y + nine, three, six);
+        graphics.fillRect(x + tFour, y + nine, three, nine);
+        graphics.fillRect(x + nine, y + fifteen, three, three);
+        graphics.fillRect(x + six, y + six, three, nine);
+        graphics.fillRect(x + nine, y + three, three, three);
         //mouth
-        graphics.fillRect(x + 12 , y + 18, 18, 3);
-        graphics.fillRect(x + 30 , y + 21, 3, 3);
-        graphics.fillRect(x + 9 , y + 21, 3, 3);
-        graphics.fillRect(x + 6 , y + 24, 3, 3);
-        graphics.fillRect(x + 12 , y + 24, 18, 3);
-        graphics.fillRect(x + 30 , y + 21, 3, 3);
-        graphics.fillRect(x + 27, y + 27, 3, 3);
-        graphics.fillRect(x + 12 , y + 30, 15, 3);
-        graphics.fillRect(x + 9 , y + 27, 3, 3);
+        graphics.fillRect(x + twelve, y + eighteen, eighteen, three);
+        graphics.fillRect(x + thirty, y + tOne, three, three);
+        graphics.fillRect(x + nine, y + tOne, three, three);
+        graphics.fillRect(x + six, y + tFour, three, three);
+        graphics.fillRect(x + twelve, y + tFour, eighteen, three);
+        graphics.fillRect(x + thirty, y + tOne, three, three);
+        graphics.fillRect(x + tSeven, y + tSeven, three, three);
+        graphics.fillRect(x + twelve, y + thirty, fifteen, three);
+        graphics.fillRect(x + nine, y + tSeven, three, three);
 
         graphics.setColor(Color.YELLOW);
-        graphics.fillRect(x, y + 3, 9, 3);
-        graphics.fillRect(x - 6, y + 6, 12, 3);
-        graphics.fillRect(x - 3, y + 9, 9, 3);
-        graphics.fillRect(x - 15, y + 12, 12, 3);
-        graphics.fillRect(x, y + 12, 6, 3);
-        graphics.fillRect(x - 15, y + 15, 15, 3);
-        graphics.fillRect(x + 3, y + 15, 6, 3);
-        graphics.fillRect(x - 15, y + 18, 15, 3);
-        graphics.fillRect(x + 3, y + 18, 9, 3);
-        graphics.fillRect(x - 12, y + 21, 9, 3);
-        graphics.fillRect(x, y + 21, 9, 3);
-        graphics.fillRect(x - 3, y + 24, 15, 3);
-        graphics.fillRect(x - 9, y + 27, 18, 3);
-        graphics.fillRect(x - 3, y + 30, 15, 3);
+        graphics.fillRect(x, y + three, nine, three);
+        graphics.fillRect(x - six, y + six, twelve, three);
+        graphics.fillRect(x - three, y + nine, nine, three);
+        graphics.fillRect(x - fifteen, y + twelve, twelve, three);
+        graphics.fillRect(x, y + twelve, six, three);
+        graphics.fillRect(x - fifteen, y + fifteen, fifteen, three);
+        graphics.fillRect(x + three, y + fifteen, six, three);
+        graphics.fillRect(x - fifteen, y + eighteen, fifteen, three);
+        graphics.fillRect(x + three, y + eighteen, nine, three);
+        graphics.fillRect(x - twelve, y + tOne, nine, three);
+        graphics.fillRect(x, y + tOne, nine, three);
+        graphics.fillRect(x - three, y + tFour, fifteen, three);
+        graphics.fillRect(x - nine, y + tSeven, eighteen, three);
+        graphics.fillRect(x - three, y + thirty, fifteen, three);
 
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(x + 12, y + 3, 6, 3);
-        graphics.fillRect(x + 9 , y + 6, 12, 3);
-        graphics.fillRect(x + 9, y + 9, 9, 3);
-        graphics.fillRect(x + 21, y + 9, 3, 3);
-        graphics.fillRect(x + 9, y + 12, 9, 3);
-        graphics.fillRect(x + 21, y + 12, 3, 3);
-        graphics.fillRect(x + 12, y + 15, 12, 3);
+        graphics.fillRect(x + twelve, y + three, six, three);
+        graphics.fillRect(x + nine, y + six, twelve, three);
+        graphics.fillRect(x + nine, y + nine, nine, three);
+        graphics.fillRect(x + tOne, y + nine, three, three);
+        graphics.fillRect(x + nine, y + twelve, nine, three);
+        graphics.fillRect(x + tOne, y + twelve, three, three);
+        graphics.fillRect(x + twelve, y + fifteen, twelve, three);
 
         graphics.setColor(Colors.NEW_ORANGE);
-        graphics.fillRect(x + 12, y + 21, 18, 3);
-        graphics.fillRect(x + 12, y + 27, 15, 3);
+        graphics.fillRect(x + twelve, y + tOne, eighteen, three);
+        graphics.fillRect(x + twelve, y + tSeven, fifteen, three);
 
     }
 }

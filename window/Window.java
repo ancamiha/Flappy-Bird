@@ -1,10 +1,7 @@
 package window;
 
 import game.Game;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import java.awt.Canvas;
 import java.awt.Dimension;
 
