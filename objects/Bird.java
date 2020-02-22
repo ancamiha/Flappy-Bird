@@ -1,99 +1,73 @@
 package objects;
 
-import common.Colors;
-import java.awt.Color;
 import java.awt.Graphics;
 
-public class Bird extends GameObject {
-    private Graphics graphics;
+public class Bird {
+    private int ticks = 0;
+    private int x;
+    private int y;
+    private Type type;
+    private int speedY;
+    private final int speed = 4;
+    private boolean isPressed = false;
 
     public Bird(final int x, final int y, final Type type) {
-        super(x, y, type);
-        //speedX = 1;
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.setSpeedY(0);
+    }
+    //getters
+    public final int getX() {
+        return x;
+    }
+    public final int getY() {
+        return y;
+    }
+    public final int getSpeedY() {
+        return speedY;
+    }
+    //setters
+    public final void setPressed(final boolean pressed) {
+        isPressed = pressed;
+    }
+    public final void setSpeedY(final int speedY) {
+        this.speedY = speedY;
+    }
+    //updates
+    public final void updateY(final int c) {
+        this.y = this.y + c;
+    }
+    public final void updateSpeedY(final int speedN) {
+        this.speedY = this.speedY + speedN;
+    }
+    //
+    public final void tick() {
+        //keep the bird above the grass
+        final int maxSpeed = 25;
+        if (isPressed) {
+            this.updateY(-speed);
+        } else {
+            this.updateY(speed);
+        }
+//        final int maxSpeed = 25;
+//        this.ticks++;
+//        if (this.ticks % 2 == 0 && this.getSpeedY() < maxSpeed) {
+//            this.updateSpeedY(2);
+//            this.updateY(this.getSpeedY());
+//        }
     }
 
-    @Override
-    public void tick() {
-        //x += speedX;
-        //y += speedY;
-    }
-
-    @Override
     public final void render(final Graphics graphics) {
-        final int three = 3;
-        final int six = 6;
-        final int nine = 9;
-        final int twelve = 12;
-        final int fifteen = 15;
-        final int eighteen = 18;
-        final int tOne = 21;
-        final int tFour =  24;
-        final int tSeven = 27;
-        final int thirty = 30;
-        final int thThree = 33;
+        DrawBird.drawBird(this, graphics);
+    }
 
-        graphics.setColor(Color.BLACK);
-        //body & wing
-        graphics.fillRect(x, y, eighteen, three);
-        graphics.fillRect(x - six, y + three, six, three);
-        graphics.fillRect(x - nine, y + six, three, three);
-        graphics.fillRect(x - fifteen, y + nine, twelve, three);
-        graphics.fillRect(x - three, y + twelve, three, three);
-        graphics.fillRect(x, y + fifteen, three, six);
-        graphics.fillRect(x - three, y + tOne, three, three);
-        graphics.fillRect(x - eighteen, y + twelve, three, nine);
-        graphics.fillRect(x - fifteen, y + tOne, three, three);
-        graphics.fillRect(x - twelve, y + tFour, nine, three);
-        graphics.fillRect(x - twelve, y + tSeven, three, three);
-        graphics.fillRect(x - nine, y + thirty, six, three);
-        graphics.fillRect(x - three, y + thThree, fifteen, three);
-        //eye
-        graphics.fillRect(x + eighteen, y + three, three, three);
-        graphics.fillRect(x + tOne, y + six, three, three);
-        graphics.fillRect(x + eighteen, y + nine, three, six);
-        graphics.fillRect(x + tFour, y + nine, three, nine);
-        graphics.fillRect(x + nine, y + fifteen, three, three);
-        graphics.fillRect(x + six, y + six, three, nine);
-        graphics.fillRect(x + nine, y + three, three, three);
-        //mouth
-        graphics.fillRect(x + twelve, y + eighteen, eighteen, three);
-        graphics.fillRect(x + thirty, y + tOne, three, three);
-        graphics.fillRect(x + nine, y + tOne, three, three);
-        graphics.fillRect(x + six, y + tFour, three, three);
-        graphics.fillRect(x + twelve, y + tFour, eighteen, three);
-        graphics.fillRect(x + thirty, y + tOne, three, three);
-        graphics.fillRect(x + tSeven, y + tSeven, three, three);
-        graphics.fillRect(x + twelve, y + thirty, fifteen, three);
-        graphics.fillRect(x + nine, y + tSeven, three, three);
-
-        graphics.setColor(Color.YELLOW);
-        graphics.fillRect(x, y + three, nine, three);
-        graphics.fillRect(x - six, y + six, twelve, three);
-        graphics.fillRect(x - three, y + nine, nine, three);
-        graphics.fillRect(x - fifteen, y + twelve, twelve, three);
-        graphics.fillRect(x, y + twelve, six, three);
-        graphics.fillRect(x - fifteen, y + fifteen, fifteen, three);
-        graphics.fillRect(x + three, y + fifteen, six, three);
-        graphics.fillRect(x - fifteen, y + eighteen, fifteen, three);
-        graphics.fillRect(x + three, y + eighteen, nine, three);
-        graphics.fillRect(x - twelve, y + tOne, nine, three);
-        graphics.fillRect(x, y + tOne, nine, three);
-        graphics.fillRect(x - three, y + tFour, fifteen, three);
-        graphics.fillRect(x - nine, y + tSeven, eighteen, three);
-        graphics.fillRect(x - three, y + thirty, fifteen, three);
-
-        graphics.setColor(Color.WHITE);
-        graphics.fillRect(x + twelve, y + three, six, three);
-        graphics.fillRect(x + nine, y + six, twelve, three);
-        graphics.fillRect(x + nine, y + nine, nine, three);
-        graphics.fillRect(x + tOne, y + nine, three, three);
-        graphics.fillRect(x + nine, y + twelve, nine, three);
-        graphics.fillRect(x + tOne, y + twelve, three, three);
-        graphics.fillRect(x + twelve, y + fifteen, twelve, three);
-
-        graphics.setColor(Colors.NEW_ORANGE);
-        graphics.fillRect(x + twelve, y + tOne, eighteen, three);
-        graphics.fillRect(x + twelve, y + tSeven, fifteen, three);
-
+    public final void jump() {
+        final int ten = 10;
+        if (this.speedY >= 0) {
+            this.speedY = 0;
+        }
+        this.speedY -= ten;
+        this.y += this.speedY;
     }
 }

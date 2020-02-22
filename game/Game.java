@@ -2,39 +2,44 @@ package game;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 import common.Colors;
-import objects.Handler;
 import objects.Bird;
+import objects.Tubes;
 import objects.Type;
 import window.Window;
 import common.Constants;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas implements Runnable, KeyListener {
     private static final long serialVersionUID = 3581940693392704995L;
     private Thread thread;
     private boolean running = false;
-    private Random r;
-    private Handler handler;
-    //private ArrayList<GameObject> columns;
+    private Tubes tubes;
+    private Bird bird;
 
     public Game() {
-        new Window(this, Constants.WIDTH, Constants.HEIGHT, "Game");
-        handler = new Handler();
-        handler.add(new Bird(Constants.WIDTH / 2 - Constants.MAX_WB,
-                Constants.HEIGHT / 2 - Constants.MAX_HB, Type.Player));
-//        columns = new ArrayList<>();
-//        for (GameObject column : columns) {
-//            handler.add(column);
-//        }
+        final int seconds = 90;
+        //
+        addKeyListener(this);
+        new Window(this, Constants.WIDTH, Constants.HEIGHT, "Flappy Bird");
+        tubes = new Tubes(seconds);
+        bird = new Bird(Constants.WIDTH / 2 - Constants.MAX_WB,
+                Constants.HEIGHT / 2 - Constants.MAX_HB - Constants.SIZE3, Type.Player);
     }
     public final synchronized void start() {
+        if (running) {
+            return;
+        }
         thread = new Thread(this);
         thread.start();
         running = true;
     }
-    public final synchronized void stop() {
+    private synchronized void stop() {
+        if (!running) {
+            return;
+        }
         try {
             //killing/stopping the thread
             thread.join();
@@ -60,9 +65,8 @@ public class Game extends Canvas implements Runnable {
     public void run() {
         //current time in nanoseconds
         long lastTime = System.nanoTime();
-        final double amountOfTicks = 60.0;
-        //nanoseconds per tick
-        final double ns = 1000000000 / amountOfTicks;
+        //nanoseconds per tick(second)
+        final double ns = 1000000000 / 60.0;
         double delta = 0;
         //get current time
         long timer = System.currentTimeMillis();
@@ -75,15 +79,13 @@ public class Game extends Canvas implements Runnable {
             while (delta >= 1) {
                 tick();
                 delta--;
-            }
-            if (running) {
                 render();
+                frames++;
             }
-            frames++;
 
             final int condition = 1000;
             //if one seconds has passed
-            if (System.currentTimeMillis() - timer > condition) {
+            if (System.currentTimeMillis() - timer >= condition) {
                 timer += condition;
                 System.out.println("FPS: " + frames);
                 frames = 0;
@@ -93,7 +95,8 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-        handler.tick();
+        bird.tick();
+        tubes.tick();
     }
 
     private void render() {
@@ -119,8 +122,26 @@ public class Game extends Canvas implements Runnable {
         graphics.fillRect(0, Constants.HEIGHT - Constants.SIZE1,
                 Constants.WIDTH, Constants.SIZE4);
 
-        handler.render(graphics);
+        bird.render(graphics);
+        tubes.render(graphics);
         graphics.dispose();
         bs.show();
+    }
+
+    @Override
+    public final void keyTyped(final KeyEvent e) { }
+
+    @Override
+    public final void keyPressed(final KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            bird.setPressed(true);
+        }
+    }
+
+    @Override
+    public final void keyReleased(final KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            bird.setPressed(false);
+        }
     }
 }

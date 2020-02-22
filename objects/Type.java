@@ -1,5 +1,3 @@
 package objects;
 
-public enum Type {
-    Player()
-}
+public enum Type { Player, Object }
