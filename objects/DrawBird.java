@@ -1,13 +1,16 @@
 package objects;
 
 import common.Colors;
-import java.awt.Graphics;
+import common.Constants;
+
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  * Singleton class.
  */
-public final class DrawBird {
+public final class DrawBird extends Rectangle {
     private static DrawBird instance;
     private DrawBird() {
     }
@@ -18,7 +21,7 @@ public final class DrawBird {
         return instance;
     }
 
-    public static void drawBird(final Bird bird, final Graphics graphics) {
+    static void drawBird(final Bird bird, final Graphics graphics) {
         final int three = 3;
         final int six = 6;
         final int nine = 9;
@@ -30,8 +33,12 @@ public final class DrawBird {
         final int tSeven = 27;
         final int thirty = 30;
         final int thThree = 33;
-        final int x = bird.getX();
-        final int y = bird.getY();
+        final int x = (int) bird.getX();
+        final int y = (int) bird.getY();
+
+        //transparent frame
+        graphics.setColor(Colors.TRANSPARENT);
+        graphics.fillRect(x - eighteen, y, Constants.MAX_WB + tOne, Constants.MAX_HB + three);
         //set color for contour
         graphics.setColor(Color.BLACK);
         //body & wing

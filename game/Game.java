@@ -1,9 +1,13 @@
 package game;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import common.Colors;
 import objects.Bird;
@@ -12,22 +16,23 @@ import objects.Type;
 import window.Window;
 import common.Constants;
 
-public class Game extends Canvas implements Runnable, KeyListener {
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener {
     private static final long serialVersionUID = 3581940693392704995L;
     private Thread thread;
     private boolean running = false;
-    private Tubes tubes;
-    private Bird bird;
+    private final int seconds = 90;
+    //init
+    private Tubes tubes = new Tubes(seconds, true);
+    private Bird bird = new Bird(Constants.WIDTH / 2 - Constants.MAX_WB,
+            Constants.HEIGHT / 2 - Constants.MAX_HB - Constants.SIZE3, Type.Player,
+            tubes);
 
     public Game() {
-        final int seconds = 90;
-        //
         addKeyListener(this);
+        addMouseListener(this);
         new Window(this, Constants.WIDTH, Constants.HEIGHT, "Flappy Bird");
-        tubes = new Tubes(seconds);
-        bird = new Bird(Constants.WIDTH / 2 - Constants.MAX_WB,
-                Constants.HEIGHT / 2 - Constants.MAX_HB - Constants.SIZE3, Type.Player);
     }
+
     public final synchronized void start() {
         if (running) {
             return;
@@ -36,7 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         thread.start();
         running = true;
     }
-    private synchronized void stop() {
+    public final synchronized void stop() {
         if (!running) {
             return;
         }
@@ -121,16 +126,48 @@ public class Game extends Canvas implements Runnable, KeyListener {
                 Constants.WIDTH, Constants.SIZE4);
         graphics.fillRect(0, Constants.HEIGHT - Constants.SIZE1,
                 Constants.WIDTH, Constants.SIZE4);
-
         bird.render(graphics);
         tubes.render(graphics);
+
+        //for starting the game
+        graphics.setColor(Color.WHITE);
+        final int fontSize1 = 45;
+        graphics.setFont(new Font("Arial", Font.BOLD, fontSize1));
+        if (!bird.isStarted()) {
+            tubes.setStopped(true);
+            graphics.drawString("Click anything to start!", Constants.WIDTH / 2 - Constants.MID_W
+                    - Constants.SIZE3, Constants.HEIGHT / 2 - Constants.MID);
+        }
+        //for game over
+        graphics.setColor(Color.ORANGE);
+        final int fontSize2 = 50;
+        graphics.setFont(new Font("Arial", Font.BOLD, fontSize2));
+        if (bird.isGameOver()) {
+            graphics.drawString("Game Over!", Constants.WIDTH / 2 - Constants.SIZE2
+                    - Constants.SIZE3, Constants.HEIGHT / 2 - Constants.MID);
+        }
+        //for score
+        graphics.setColor(Color.BLACK);
+        final int fontSize3 = 25;
+        graphics.setFont(new Font("Arial", Font.BOLD, fontSize3));
+        if (bird.isStarted() && !bird.isGameOver()) {
+            tubes.setStopped(false);
+            graphics.drawString("Score: " + bird.getScore(), 0, Constants.SIZE3);
+        }
         graphics.dispose();
         bs.show();
     }
 
+    //mouse listener
     @Override
-    public final void keyTyped(final KeyEvent e) { }
-
+    public final void mousePressed(final MouseEvent e) {
+        bird.setPressed(true);
+    }
+    @Override
+    public final void mouseReleased(final MouseEvent e) {
+        bird.setPressed(false);
+    }
+    //keyboard listener
     @Override
     public final void keyPressed(final KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -144,4 +181,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
             bird.setPressed(false);
         }
     }
+
+    @Override
+    public final void keyTyped(final KeyEvent e) { }
+    @Override
+    public void mouseClicked(final MouseEvent e) { }
+    @Override
+    public void mouseEntered(final MouseEvent e) { }
+    @Override
+    public void mouseExited(final MouseEvent e) { }
 }

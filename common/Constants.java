@@ -13,4 +13,6 @@ public final class Constants {
     public static final int SIZE3 = 20;
     public static final int SIZE4 = 5;
     public static final int TUBE_W = 40;
+    public static final int MID = 70;
+    public static final int MID_W = 220;
 }
