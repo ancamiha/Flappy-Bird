@@ -1,5 +1,5 @@
 # Flappy-Bird
-A minimalist game in Java with graphic interface that you can play with the mouse or with the keyboard. The bird need to go through collumns witout touching it.
+A minimalist game in Java with graphic interface that you can play with the mouse or with the keyboard. The bird need to go through columns witout touching it.
 
 ## How does it work?
 After running the program a window will open.
